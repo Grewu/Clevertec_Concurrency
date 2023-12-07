@@ -25,7 +25,7 @@ public class Server {
                 Thread.sleep(ThreadLocalRandom.current().nextInt(901) + 100);
                 resultList.add(request.value());
             } catch (InterruptedException e) {
-                e.printStackTrace();
+               throw new RuntimeException();
             }
         });
     }
@@ -35,7 +35,7 @@ public class Server {
         try {
            executorService.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            throw new RuntimeException();
         }
 
         System.out.println("Result list size: " + resultList.size());
@@ -44,7 +44,7 @@ public class Server {
     }
 
     public int getAccumulator() {
-        return resultList.stream().mapToInt(Integer::intValue).sum();
+        return resultList.size();
     }
 
     private List<Integer> generateList() {

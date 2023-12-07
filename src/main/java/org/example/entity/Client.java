@@ -1,6 +1,5 @@
 package org.example.entity;
 
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -9,7 +8,6 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadLocalRandom;
-
 
 class Client implements Runnable {
     private final List<Integer> dataList;
@@ -37,7 +35,7 @@ class Client implements Runnable {
                     Thread.sleep(new Random().nextInt(401) + 100);
                     server.processRequest(request);
                 } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    throw new RuntimeException();
                 }
             }, executorService);
 
@@ -49,7 +47,7 @@ class Client implements Runnable {
         try {
             allOf.get();
         } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
+            throw new RuntimeException();
         }
 
         executorService.shutdown();
